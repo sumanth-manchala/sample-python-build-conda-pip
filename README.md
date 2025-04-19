@@ -35,5 +35,3 @@ uv build
 ```
 
 This will generate a `.whl` file in the `dist/` directory.
-
-`
