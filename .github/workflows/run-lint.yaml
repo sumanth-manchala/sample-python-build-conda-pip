@@ -15,5 +15,6 @@ jobs:
     uses: ./.github/workflows/lint.yaml
     with:
       conda_install_tool: micromamba
-      packages: "ruff pylint"
+      packages: "ruff pylint conda-build"
       lint_command: "ruff check ."
+      build_command: "conda build ./conda.recipe --no-test"

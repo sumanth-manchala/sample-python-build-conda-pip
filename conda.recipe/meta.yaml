@@ -1,0 +1,18 @@
+package:
+  name: sample-python-build-conda-pip
+  version: 0.1.0
+
+source:
+  path: .
+
+dependencies:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - pip
+
+about:
+  home: https://github.com/your-repo/sample-python-build-conda-pip
+  summary: A sample project for building with Conda and Pip.

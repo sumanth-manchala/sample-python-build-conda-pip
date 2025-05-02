@@ -11,6 +11,10 @@ on:
         description: 'Command to run linting'
         required: true
         type: string
+      build_command:
+        description: 'Command to run build'
+        required: false
+        type: string
       conda_install_tool:
         description: 'Tool to use for conda installation (e.g., micromamba)'
         required: false
@@ -52,3 +56,6 @@ jobs:
           #cache: true
       - name: Run Lint
         run: ${{ inputs.lint_command }}
+      
+      - name: Run Build
+        run: ${{ inputs.build_command }}
