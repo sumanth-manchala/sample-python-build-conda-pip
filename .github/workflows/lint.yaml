@@ -2,7 +2,7 @@ name: Lint
 run-name: Lint
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  linter:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -22,4 +22,4 @@ jobs:
             requests
             pixi
       - name: Run Lint
-        run: conda info
+        run: python .github/test.py
