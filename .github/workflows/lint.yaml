@@ -21,4 +21,3 @@ jobs:
             ruff
       - name: Run Lint
         run: conda info
-        shell: bash -el {0}
