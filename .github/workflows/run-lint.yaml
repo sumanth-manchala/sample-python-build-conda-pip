@@ -12,5 +12,5 @@ jobs:
   lint:
     uses: ./.github/workflows/lint.yaml
     with:
-      packages: "ruff"
+      packages: "ruff pylint"
       lint_command: "ruff check ."
