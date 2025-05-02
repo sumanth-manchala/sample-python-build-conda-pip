@@ -1,6 +1,6 @@
 name: Run Lint Workflow with micromamba
 
-run-name: Lint with micromamba - ${{ github.event.head_commit.message }}
+run-name: Lint and build with micromamba - ${{ github.event.head_commit.message }}
 
 on:
   push:
