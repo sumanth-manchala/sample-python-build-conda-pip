@@ -1,18 +1,25 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Lint
+run-name: Lint
 on: [push]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: install code
+        uses: mamba-org/setup-micromamba@06375d89d211a1232ef63355742e9e2e564bc7f7
+        with:
+          environment-name: lint
+          condarc: |
+            show_channel_urls: true
+            channel_priority: strict
+            channels:
+              - conda-forge
+          create-args: >-
+            conda-smithy
+            pygithub
+            requests
+            pixi
+      - name: Run Lint
+        run: conda info
