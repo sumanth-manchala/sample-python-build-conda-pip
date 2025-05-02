@@ -17,6 +17,8 @@ channels = ["https://prefix.dev/conda-forge", "https://prefix.dev/pixi-build-bac
 platforms = ["osx-arm64", "win-64", "linux-64"]
 preview = ["pixi-build"]
 
+[tool.pixi.dependencies]
+ruff = "*"
 
 [tool.pixi.package.host-dependencies]
 hatchling = "==1.27.0"
@@ -26,7 +28,7 @@ python = ">=3.12"
 sample_python_build_conda_pip = { path = ".", editable = true }
 
 [tool.pixi.tasks]
-
+lint  = "ruff check ."
 
 [tool.pixi.package.build]
 backend = { name = "pixi-build-python", version = "0.1.*" }

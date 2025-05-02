@@ -1,4 +1,4 @@
-name: Run Lint Workflow with micromamba
+name: Run Lint Workflow with Pixi
 
 on:
   push:
@@ -12,5 +12,5 @@ jobs:
   lint:
     uses: ./.github/workflows/lint.yaml
     with:
-      packages: "ruff pylint"
-      lint_command: "ruff check ."
+      lint_command: "pixi run lint"
+      conda_install_tool: pixi

@@ -5,8 +5,8 @@ on:
     inputs:
       packages:
         description: 'Packages to install in the environment'
-        required: true
         type: string
+        required: ${{ inputs.conda_install_tool == 'micromamba' }}
       lint_command:
         description: 'Command to run linting'
         required: true
@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Install code
+      - name: Install code with micromamba
         if: ${{ inputs.conda_install_tool == 'micromamba' }}
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -44,5 +44,11 @@ jobs:
               - conda-forge
           create-args: >-
             ${{ inputs.packages }}
+      - name: Install code with pixi
+        if: ${{ inputs.conda_install_tool == 'pixi' }}
+        uses: prefix-dev/setup-pixi@v0.8.8
+        with:
+          pixi-version: v0.45.0
+          cache: true
       - name: Run Lint
         run: ${{ inputs.lint_command }}
