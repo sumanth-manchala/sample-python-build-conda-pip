@@ -12,7 +12,7 @@ on:
 
 jobs:
   lint:
-    uses: ./.github/workflows/lint.yaml
+    uses: ./.github/workflows/lint-and-build.yaml
     with:
       conda_install_tool: micromamba
       packages: "ruff pylint conda-build"

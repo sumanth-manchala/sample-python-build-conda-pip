@@ -11,7 +11,7 @@ on:
 
 jobs:
   lint:
-    uses: ./.github/workflows/lint.yaml
+    uses: ./.github/workflows/lint-and-build.yaml
     with:
       lint_command: "pixi run lint"
       conda_install_tool: pixi
