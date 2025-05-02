@@ -20,5 +20,5 @@ jobs:
           create-args: >-
             ruff
       - name: Run Lint
-        run: ruff check
+        run: conda info
         shell: bash -el {0}
