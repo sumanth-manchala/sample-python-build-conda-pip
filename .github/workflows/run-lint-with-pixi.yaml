@@ -10,6 +10,7 @@ on:
 
 jobs:
   lint:
+    name: Lint with pixi - ${{ github.event.head_commit.message }}
     uses: ./.github/workflows/lint.yaml
     with:
       lint_command: "pixi run lint"
