@@ -6,7 +6,7 @@ on:
       packages:
         description: 'Packages to install in the environment'
         type: string
-        required: ${{ inputs.conda_install_tool == 'micromamba' }}
+        required: false
       lint_command:
         description: 'Command to run linting'
         required: true
