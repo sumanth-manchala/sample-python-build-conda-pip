@@ -21,3 +21,4 @@ jobs:
             ruff
       - name: Run Lint
         run: ruff check
+        shell: bash -el {0}
