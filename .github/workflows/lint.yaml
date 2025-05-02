@@ -21,5 +21,6 @@ jobs:
             pygithub
             requests
             pixi
+            ruff
       - name: Run Lint
-        run: python .github/test.py
+        run: ruff check
