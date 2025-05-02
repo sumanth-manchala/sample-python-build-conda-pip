@@ -1,0 +1,16 @@
+name: Run Lint Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    uses: .github/workflows/lint.yaml
+    with:
+      packages: "ruff"
+      lint_command: "ruff check ."
