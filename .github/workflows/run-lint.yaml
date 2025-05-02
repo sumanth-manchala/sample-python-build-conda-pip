@@ -1,5 +1,7 @@
 name: Run Lint Workflow with micromamba
 
+run-name: Lint with micromamba - ${{ github.event.head_commit.message }}
+
 on:
   push:
     branches:
@@ -11,7 +13,6 @@ on:
 jobs:
   lint:
     uses: ./.github/workflows/lint.yaml
-    name: Lint with micromamba - ${{ github.event.head_commit.message }}
     with:
       conda_install_tool: micromamba
       packages: "ruff pylint"
