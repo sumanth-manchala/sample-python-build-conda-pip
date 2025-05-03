@@ -15,4 +15,5 @@ jobs:
     with:
       lint_command: "pixi run lint"
       conda_install_tool: pixi
+      conda_build_tool: pixi
       build_command: "pixi build"

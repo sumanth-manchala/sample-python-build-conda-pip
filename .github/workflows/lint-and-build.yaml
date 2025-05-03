@@ -7,6 +7,7 @@ on:
         description: 'Packages to install in the environment'
         type: string
         required: false
+        default: "ruff pylint conda-build"
       lint_command:
         description: 'Command to run linting'
         required: true
@@ -24,6 +25,7 @@ on:
         description: 'Tool to use for conda builds'
         required: false
         type: string
+        default: conda-build
 
 defaults:
   run:
@@ -35,6 +37,33 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+      - name: Validate Config
+        run: |
+          echo "Lint command: ${{ inputs.lint_command }}"
+          echo "Build command: ${{ inputs.build_command }}"
+          echo "Conda install tool: ${{ inputs.conda_install_tool }}"
+          echo "Conda build tool: ${{ inputs.conda_build_tool }}"
+          # Validate conda_install_tool
+          allowed_conda_install_tools=("micromamba" "pixi")
+          if [[ ! " ${allowed_conda_install_tools[@]} " =~ " ${inputs.conda_install_tool} " ]]; then
+            echo "Error: conda_install_tool must be one of: ${allowed_conda_install_tools[*]}"
+            exit 1
+          fi
+
+          # Validate conda_build_tool
+          allowed_conda_build_tools=("conda-build" "rattler-build", "pixi")
+          if [[ ! " ${allowed_conda_build_tools[@]} " =~ " ${inputs.conda_build_tool} " ]]; then
+            echo "Error: conda_build_tool must be one of: ${allowed_conda_build_tools[*]}"
+            exit 1
+          fi
+
+          # Check for meta.yaml and conda.recipe directory if conda_build_tool is conda-build
+          if [[ "${inputs.conda_build_tool}" == "conda-build" ]]; then
+            if [[ ! -f "meta.yaml" && ! -d "conda.recipe" ]]; then
+              echo "Error: meta.yaml file or conda.recipe directory must exist for conda-build."
+              exit 1
+            fi
+          fi
       - name: Install code with micromamba
         if: ${{ inputs.conda_install_tool == 'micromamba' }}
         uses: mamba-org/setup-micromamba@v2
