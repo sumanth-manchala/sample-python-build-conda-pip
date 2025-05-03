@@ -13,6 +13,3 @@ requirements:
   run:
     - python
     - pip
-
-build:
-  script: python setup.py install
