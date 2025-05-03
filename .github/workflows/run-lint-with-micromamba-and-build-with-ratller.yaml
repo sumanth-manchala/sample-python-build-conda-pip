@@ -1,0 +1,20 @@
+name: Run Lint and Build Workflow with micromamba
+
+run-name: Lint with micromamba and build with rattler - ${{ github.event.head_commit.message }}
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    uses: ./.github/workflows/lint-and-build.yaml
+    with:
+      conda_install_tool: micromamba
+      packages: "ruff pylint rattler-build"
+      lint_command: "ruff check ."
+      build_command: "rattler-build ./conda.recipe --no-test"

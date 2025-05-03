@@ -1,4 +1,4 @@
-name: Run Lint Workflow with Pixi
+name: Run Lint and build Workflow with Pixi
 
 run-name: Lint and build with pixi - ${{ github.event.head_commit.message }}
 on:
