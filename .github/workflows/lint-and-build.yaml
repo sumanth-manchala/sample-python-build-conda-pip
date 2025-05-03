@@ -38,27 +38,31 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Validate Config
+        env:
+          CONDA_INSTALL_TOOL: ${{ inputs.conda_install_tool }}
+          CONDA_BUILD_TOOL: ${{ inputs.conda_build_tool }}
         run: |
           echo "Lint command: ${{ inputs.lint_command }}"
           echo "Build command: ${{ inputs.build_command }}"
-          echo "Conda install tool: ${{ inputs.conda_install_tool }}"
-          echo "Conda build tool: ${{ inputs.conda_build_tool }}"
+          echo "Conda install tool: $CONDA_INSTALL_TOOL"
+          echo "Conda build tool: $CONDA_BUILD_TOOL"
+
           # Validate conda_install_tool
           allowed_conda_install_tools=("micromamba" "pixi")
-          if [[ ! " ${allowed_conda_install_tools[@]} " =~ " ${inputs.conda_install_tool} " ]]; then
-            echo "Error: conda_install_tool must be one of: ${allowed_conda_install_tools[*]}"
+          if [[ ! " ${allowed_conda_install_tools[@]} " =~ " $CONDA_INSTALL_TOOL " ]]; then
+            echo "Error: CONDA_INSTALL_TOOL must be one of: ${allowed_conda_install_tools[*]}"
             exit 1
           fi
 
           # Validate conda_build_tool
-          allowed_conda_build_tools=("conda-build" "rattler-build", "pixi")
-          if [[ ! " ${allowed_conda_build_tools[@]} " =~ " ${inputs.conda_build_tool} " ]]; then
-            echo "Error: conda_build_tool must be one of: ${allowed_conda_build_tools[*]}"
+          allowed_conda_build_tools=("conda-build" "rattler-build" "pixi")
+          if [[ ! " ${allowed_conda_build_tools[@]} " =~ " $CONDA_BUILD_TOOL " ]]; then
+            echo "Error: CONDA_BUILD_TOOL must be one of: ${allowed_conda_build_tools[*]}"
             exit 1
           fi
 
           # Check for meta.yaml and conda.recipe directory if conda_build_tool is conda-build
-          if [[ "${inputs.conda_build_tool}" == "conda-build" ]]; then
+          if [[ "$CONDA_BUILD_TOOL" == "conda-build" ]]; then
             if [[ ! -f "meta.yaml" && ! -d "conda.recipe" ]]; then
               echo "Error: meta.yaml file or conda.recipe directory must exist for conda-build."
               exit 1
