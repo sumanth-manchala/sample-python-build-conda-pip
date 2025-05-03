@@ -17,4 +17,4 @@ jobs:
       conda_install_tool: micromamba
       packages: "ruff pylint rattler-build"
       lint_command: "ruff check ."
-      build_command: "rattler-build ./conda.recipe --no-test"
+      build_command: "rattler-build build --recipe-dir ./conda.recipe --no-test"
